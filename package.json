@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node bin/app"
+    "start": "tsc && nodemon bin/app"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +14,7 @@
     "express": "^4.13.4",
     "inversify": "^2.0.0-beta.5",
     "inversify-dts": "^1.0.0",
+    "nodemon": "^1.14.12",
     "reflect-metadata": "^0.1.3"
   },
   "devDependencies": {

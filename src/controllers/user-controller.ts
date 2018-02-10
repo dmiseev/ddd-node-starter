@@ -10,14 +10,16 @@ export class UserController {
     constructor( @inject('UserService') private userService: UserService ) {}
     
     @Get('/')
-    private all(req: express.Request, res: express.Response): string {
+    private all(req: express.Request, res: express.Response): Promise<any> {
 
-        return res.json(this.userService.all())
+        return res.status(200).json(this.userService.all())
     }
 
     @Get('/:id')
-    private get(req: express.Request, res: express.Response): string {
+    private get(req: express.Request, res: express.Response) {
 
-        return res.json(this.userService.get(req.params.id))
+        res.status(200).json(
+            this.userService.get(parseInt(req.params.id))
+        );
     }
 }

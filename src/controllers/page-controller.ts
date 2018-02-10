@@ -9,17 +9,17 @@ export class PageController {
     @Get('/')
     private index(req: express.Request, res: express.Response): string {
 
-        return res.json({
+        return res.status(200).json({
             message: 'Home page.'
-        })
+        });
     }
 
     @Get('/about')
     private about(req: express.Request, res: express.Response): string {
 
-        return res.json({
+        return res.status(200).json({
             message: 'About page.'
-        })
+        });
     }
 
     @Get('/faq')
@@ -27,9 +27,9 @@ export class PageController {
 
         let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-        return res.json({
+        return res.status(200).json({
             message: 'FAQ page.',
             ip: ip
-        })
+        });
     }
 }
