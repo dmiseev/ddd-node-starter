@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import {createConnection} from "typeorm";
 import { Server } from './framework/server';
-import { default as kernel } from './config/ioc-config';
+import { default as kernel } from './config/config';
 
 createConnection().then(async connection => {
 
