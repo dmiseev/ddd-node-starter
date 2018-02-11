@@ -1,6 +1,7 @@
 import { getKernel } from './kernel';
 import { getContainer } from './route-container';
 import * as express from 'express';
+import {User} from '../entities/User';
 
 export function Controller(path: string | RegExp, ...middleware: Function[]) {
 
@@ -22,7 +23,18 @@ export function Method(method: string, path: string | RegExp, ...middleware: Fun
     return function (target: any, key: string, value: any) {
         getContainer().registerHandler(method, path, target, middleware, (req: express.Request, res: express.Response, next: any) => {
             let result = getKernel().get(target.constructor.name)[key](req, res, next);
-            if (result || !res.headersSent) res.send(result);
+
+            if (result || !res.headersSent) {
+
+                if (result instanceof Promise) {
+
+                    result.then((result: any) => {
+                        res.send(result);
+                    });
+                } else {
+                    res.send(result)
+                }
+            }
         });
     }
 }

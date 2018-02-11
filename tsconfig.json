@@ -7,12 +7,14 @@
     "emitDecoratorMetadata": true,
     "listFiles": false,
     "diagnostics": false,
-    "module": "commonjs"
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "moduleResolution": "node"
   },
   "typeRoots": [
     "node_modules/@types"
   ],
-  "compileOnSave": false,
+  "compileOnSave": true,
   "exclude": [
     "node_modules"
   ]

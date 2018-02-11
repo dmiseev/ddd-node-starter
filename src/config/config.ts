@@ -2,9 +2,9 @@ import "reflect-metadata";
 
 import { Kernel } from 'inversify';
 
-import { PageController } from '../controllers/page-controller';
-import { UserController } from '../controllers/user-controller';
-import { UserService } from '../services/user-service';
+import { PageController } from '../controllers/PageController';
+import { UserController } from '../controllers/UserController';
+import { UserService } from '../services/UserService';
 
 // set up kernel
 let kernel: Kernel = new Kernel();
