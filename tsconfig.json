@@ -9,6 +9,9 @@
     "diagnostics": false,
     "module": "commonjs"
   },
+  "typeRoots": [
+    "node_modules/@types"
+  ],
   "compileOnSave": false,
   "exclude": [
     "node_modules"

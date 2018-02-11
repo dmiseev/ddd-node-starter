@@ -1,22 +1,18 @@
-import { injectable } from "inversify";
+import {Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
 
-@injectable()
-class User {
-    private id: number;
-    private username: string;
+@Entity()
+export class User {
 
-    public constructor(id: number, username: string) {
-        this.id = id;
-        this.username = username;
-    }
+    @PrimaryGeneratedColumn()
+    id: number;
 
-    public getId(): number {
-        return this.id;
-    }
+    @Column({
+        length: 255
+    })
+    firstName: string;
 
-    public getUsername(): string {
-        return this.username;
-    }
+    @Column({
+        length: 255
+    })
+    lastName: string;
 }
-
-export default User;

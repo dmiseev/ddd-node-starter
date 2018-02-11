@@ -1,0 +1,21 @@
+{
+  "name": "default",
+  "type": "postgres",
+  "host": "192.168.1.103",
+  "port": 5411,
+  "username": "express_starter_user",
+  "password": "Eh7gLagHHHzK2h7j",
+  "database": "express_starter_db",
+  "synchronize": true,
+  "logging": false,
+  "entities": [
+    "bin/entities/*.js"
+  ],
+  "migrations": [
+    "bin/migrations/*.js"
+  ],
+  "cli": {
+    "entitiesDir": "src/entities",
+    "migrationsDir": "src/migrations"
+  }
+}

@@ -1,24 +1,48 @@
 import {injectable} from 'inversify';
-import User from '../entities/user';
+import {User} from '../entities/user';
+import {getManager, Repository} from 'typeorm';
 
 @injectable()
 export class UserService {
 
-    private users: Array<User>;
+    private userRepository: Repository<User>;
 
     constructor() {
-        this.users = [
-            new User(1, 'ak_only'),
-            new User(2, 'Janjo'),
-            new User(3, 'Тренер'),
-        ]
+        this.userRepository = getManager().getRepository(User);
     }
 
-    public all(): Array<User> {
-        return this.users;
+    /**
+     * @returns {Promise<User[]>}
+     */
+    public async all(): Promise<User[]> {
+        return await this.userRepository.find();
     }
 
-    public get(id: number) {
-        return this.users.filter((user: User) => user.getId() === id)[0];
+    /**
+     *
+     * @param {number} id
+     * @returns {Promise<void>}
+     */
+    public async get(id: number): Promise<User> {
+        return await this.userRepository.findOneById(id);
+    }
+
+    /**
+     *
+     * @param {string} firstName
+     * @param {string} lastName
+     *
+     * @returns {Promise<User>}
+     */
+    public async store(firstName: string, lastName: string): Promise<User> {
+
+        let user = new User();
+
+        user.firstName = firstName;
+        user.lastName = lastName;
+
+        await this.userRepository.save(user);
+
+        return user;
     }
 }

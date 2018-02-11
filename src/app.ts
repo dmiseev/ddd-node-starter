@@ -1,15 +1,21 @@
 import "reflect-metadata";
+import {createConnection} from "typeorm";
 import { Server } from './framework/server';
 import { default as kernel } from './config/ioc-config';
 
-// create server
-let server = new Server(kernel);
-const port = process.env.PORT || 3000;
+createConnection().then(async connection => {
 
-server
-    .build()
-    .listen(port, 'localhost', callback);
+    // create server
+    let server = new Server(kernel);
+    const port = process.env.PORT || 3000;
 
-function callback() {
-    console.log('listening on http://localhost:' + port);
-}
+    server
+        .build()
+        .listen(port, 'localhost', callback);
+
+    function callback() {
+        console.log('listening on http://localhost:' + port);
+    }
+
+}).catch(error => console.log("TypeORM connection error: ", error));
+
