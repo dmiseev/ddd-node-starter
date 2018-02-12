@@ -1,6 +1,6 @@
-import {Request} from 'express';
-import {Controller, Get} from '../framework/decorators';
-import {injectable} from 'inversify';
+import { Request } from 'express';
+import { Controller, Get } from '../framework/decorators';
+import { injectable } from 'inversify';
 
 @Controller('/')
 @injectable()

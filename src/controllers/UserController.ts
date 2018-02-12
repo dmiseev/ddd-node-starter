@@ -1,14 +1,14 @@
-import { Request, Response} from 'express';
+import { Request, Response } from 'express';
 import { Controller, Get, Post } from '../framework/decorators';
 import { injectable, inject } from 'inversify';
 import { UserService } from '../services/UserService';
-import {User} from '../entities/User';
+import { User } from '../entities/User';
 
 @Controller('/users')
 @injectable()
 export class UserController {
 
-    constructor( @inject('UserService') private userService: UserService ) {}
+    constructor(@inject('UserService') private userService: UserService) {}
 
     /**
      * @returns {Promise<User[]>}

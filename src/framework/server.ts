@@ -1,8 +1,8 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import {Kernel} from 'inversify';
-import {setKernel} from './kernel';
-import {getContainer} from './route-container';
+import { Kernel } from 'inversify';
+import { setKernel } from './kernel';
+import { getContainer } from './route-container';
 
 /**
  * Wrapper for the express server.

@@ -1,7 +1,6 @@
 import { getKernel } from './kernel';
 import { getContainer } from './route-container';
 import * as express from 'express';
-import {User} from '../entities/User';
 
 export function Controller(path: string | RegExp, ...middleware: Function[]) {
 
@@ -10,13 +9,33 @@ export function Controller(path: string | RegExp, ...middleware: Function[]) {
     }
 }
 
-export function All(path: string | RegExp, ...middleware: Function[])    { return Method('all', path, ...middleware); }
-export function Get(path: string | RegExp, ...middleware: Function[])    { return Method('get', path, ...middleware); }
-export function Post(path: string | RegExp, ...middleware: Function[])   { return Method('post', path, ...middleware); }
-export function Put(path: string | RegExp, ...middleware: Function[])    { return Method('put', path, ...middleware); }
-export function Patch(path: string | RegExp, ...middleware: Function[])  { return Method('patch', path, ...middleware); }
-export function Head(path: string | RegExp, ...middleware: Function[])   { return Method('head', path, ...middleware); }
-export function Delete(path: string | RegExp, ...middleware: Function[]) { return Method('delete', path, ...middleware); }
+export function All(path: string | RegExp, ...middleware: Function[]) {
+    return Method('all', path, ...middleware);
+}
+
+export function Get(path: string | RegExp, ...middleware: Function[]) {
+    return Method('get', path, ...middleware);
+}
+
+export function Post(path: string | RegExp, ...middleware: Function[]) {
+    return Method('post', path, ...middleware);
+}
+
+export function Put(path: string | RegExp, ...middleware: Function[]) {
+    return Method('put', path, ...middleware);
+}
+
+export function Patch(path: string | RegExp, ...middleware: Function[]) {
+    return Method('patch', path, ...middleware);
+}
+
+export function Head(path: string | RegExp, ...middleware: Function[]) {
+    return Method('head', path, ...middleware);
+}
+
+export function Delete(path: string | RegExp, ...middleware: Function[]) {
+    return Method('delete', path, ...middleware);
+}
 
 export function Method(method: string, path: string | RegExp, ...middleware: Function[]) {
 

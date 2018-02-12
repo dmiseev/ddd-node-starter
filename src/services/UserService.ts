@@ -1,6 +1,6 @@
-import {injectable} from 'inversify';
-import {User} from '../entities/User';
-import {getManager, Repository} from 'typeorm';
+import { injectable } from 'inversify';
+import { User } from '../entities/User';
+import { getManager, Repository } from 'typeorm';
 
 @injectable()
 export class UserService {
