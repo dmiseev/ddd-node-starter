@@ -1,14 +1,12 @@
-import { injectable } from 'inversify';
-import { User } from '../entities/User';
-import { getManager, Repository } from 'typeorm';
+import { injectable, inject } from 'inversify';
+import { User } from '../Domain/User/User';
+import { UserRepository } from '../Domain/User/UserRepository';
 
 @injectable()
 export class UserService {
 
-    private userRepository: Repository<User>;
-
-    constructor() {
-        this.userRepository = getManager().getRepository(User);
+    constructor(@inject('UserRepository') private userRepository: UserRepository) {
+        this.userRepository = userRepository;
     }
 
     /**
@@ -16,7 +14,7 @@ export class UserService {
      */
     public all(): Promise<User[]> {
 
-        return this.userRepository.find();
+        return this.userRepository.all();
     }
 
     /**
@@ -25,7 +23,7 @@ export class UserService {
      */
     public byId(id: number): Promise<User> {
 
-        return this.userRepository.findOneById(id);
+        return this.userRepository.byId(id);
     }
 
     /**
@@ -36,7 +34,7 @@ export class UserService {
      */
     public store(firstName: string, lastName: string): Promise<User> {
 
-        return this.userRepository.save(
+        return this.userRepository.store(
             User.register(firstName, lastName)
         );
     }

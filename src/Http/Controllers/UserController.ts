@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { Controller, Get, Post } from '../framework/decorators';
+import { Controller, Get, Post } from '../../framework/decorators';
 import { injectable, inject } from 'inversify';
-import { UserService } from '../services/UserService';
-import { User } from '../entities/User';
+import { UserService } from '../../Services/UserService';
+import { User } from '../../Domain/User/User';
 
 @Controller('/users')
 @injectable()
