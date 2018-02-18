@@ -1,6 +1,6 @@
 import "reflect-metadata";
 
-import { Kernel, injectable, decorate } from 'inversify';
+import { Kernel } from 'inversify';
 
 import { PageController } from '../Http/Controllers/PageController';
 import { UserController } from '../Http/Controllers/UserController';

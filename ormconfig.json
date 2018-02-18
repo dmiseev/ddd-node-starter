@@ -9,13 +9,9 @@
   "synchronize": true,
   "logging": false,
   "entities": [
-    "bin/entities/*.js"
+    "bin/Domain/User/User.js"
   ],
   "migrations": [
-    "bin/migrations/*.js"
-  ],
-  "cli": {
-    "entitiesDir": "src/entities",
-    "migrationsDir": "src/migrations"
-  }
+    "bin/database/migrations/*.js"
+  ]
 }

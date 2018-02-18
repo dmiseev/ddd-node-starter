@@ -1,7 +1,7 @@
 import { EntityRepository, EntityManager, getManager } from 'typeorm';
 import { UserRepository } from '../../../Domain/User/UserRepository';
 import { User } from '../../../Domain/User/User';
-import { injectable, inject } from 'inversify';
+import { injectable } from 'inversify';
 
 @injectable()
 @EntityRepository()
@@ -18,16 +18,7 @@ export class TypeOrmUserRepository implements UserRepository{
      */
     async all(): Promise<User[]> {
 
-        let users = this.entityManager.createQueryBuilder()
-            .select()
-            .from(User, 'u')
-            .getMany();
-
-        users.then((users: User[]) => {
-            console.log(users);
-        });
-
-        return users;
+        return this.entityManager.createQueryBuilder(User, 'u').getMany();
     }
 
     /**
@@ -36,9 +27,7 @@ export class TypeOrmUserRepository implements UserRepository{
      */
     async byId(id: number): Promise<User> {
 
-        return this.entityManager.createQueryBuilder()
-            .select()
-            .from(User, 'u')
+        return this.entityManager.createQueryBuilder(User, 'u')
             .where('u.id = :id')
             .setParameters({ id })
             .getOne();
