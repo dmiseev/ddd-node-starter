@@ -33,6 +33,11 @@ export class UserController {
      */
     @Post('/')
     public async store(request: Request): Promise<User> {
-        return await this.userService.store(request.body.firstName, request.body.lastName);
+        // TODO: use DTO
+        return await this.userService.store(
+            request.body.email,
+            request.body.firstName,
+            request.body.lastName
+        );
     }
 }
