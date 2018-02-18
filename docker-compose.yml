@@ -19,8 +19,8 @@ services:
      - data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: Eh7gLagHHHzK2h7j
-      POSTGRES_USER: express_starter_user
-      POSTGRES_DB: express_starter_db
+      POSTGRES_USER: starter_user
+      POSTGRES_DB: starter_db
 
 volumes:
  data: {}
