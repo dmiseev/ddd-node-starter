@@ -36,6 +36,7 @@ export class UserController {
         // TODO: use DTO
         return await this.userService.store(
             request.body.email,
+            request.body.password,
             request.body.firstName,
             request.body.lastName
         );

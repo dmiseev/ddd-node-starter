@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^7.0.22",
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.13.4",
     "inversify": "^2.0.0-beta.5",

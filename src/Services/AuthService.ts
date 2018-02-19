@@ -1,5 +1,7 @@
 import { injectable, inject } from 'inversify';
 import { UserRepository } from '../Domain/User/UserRepository';
+import * as bcrypt from 'bcrypt';
+import { User } from '../Domain/User/User';
 
 @injectable()
 export class AuthService {
@@ -20,10 +22,21 @@ export class AuthService {
     /**
      * @param {string} email
      * @param {string} password
+     * @param {string} firstName
+     * @param {string} lastName
+     *
+     * @returns {Promise<User>}
      */
-    public signUp(email: string, password: string) {
+    public signUp(email: string, password: string, firstName: string, lastName: string) {
 
-        // TODO: implement it
+        let user = User.register(
+            email,
+            bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
+            firstName,
+            lastName
+        );
+
+        return this.userRepository.store(user);
     }
 
     /**
@@ -34,4 +47,6 @@ export class AuthService {
 
         // TODO: implement it
     }
+
+
 }

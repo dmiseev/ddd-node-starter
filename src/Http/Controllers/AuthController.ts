@@ -25,6 +25,12 @@ export class AuthController {
     @Post('/sign-up')
     public async signUp(request: Request) {
 
+        return this.userService.signUp(
+            request.body.email,
+            request.body.password,
+            request.body.firstName,
+            request.body.lastName
+        )
     }
 
     /**

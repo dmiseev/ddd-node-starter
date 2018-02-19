@@ -28,15 +28,16 @@ export class UserService {
 
     /**
      * @param {string} email
+     * @param {string} password
      * @param {string} firstName
      * @param {string} lastName
      *
      * @returns {Promise<User>}
      */
-    public store(email: string, firstName: string, lastName: string): Promise<User> {
+    public store(email: string, password: string, firstName: string, lastName: string): Promise<User> {
 
         return this.userRepository.store(
-            User.register(email, firstName, lastName)
+            User.register(email, password, firstName, lastName)
         );
     }
 }
