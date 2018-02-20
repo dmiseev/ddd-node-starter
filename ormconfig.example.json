@@ -6,7 +6,7 @@
   "username": "starter_user",
   "password": "Eh7gLagHHHzK2h7j",
   "database": "starter_db",
-  "synchronize": true,
+  "synchronize": "all",
   "logging": false,
   "entities": [
     "bin/Domain/User/User.js"

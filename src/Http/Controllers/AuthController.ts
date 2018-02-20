@@ -30,7 +30,7 @@ export class AuthController {
             request.body.password,
             request.body.firstName,
             request.body.lastName
-        )
+        );
     }
 
     /**

@@ -1,12 +1,13 @@
 import { getKernel } from './kernel';
 import { getContainer } from './route-container';
 import * as express from 'express';
+import { serialize } from 'class-transformer';
 
 export function Controller(path: string | RegExp, ...middleware: Function[]) {
 
     return function (target: any) {
         getContainer().registerController(path, middleware, target);
-    }
+    };
 }
 
 export function All(path: string | RegExp, ...middleware: Function[]) {
@@ -48,12 +49,17 @@ export function Method(method: string, path: string | RegExp, ...middleware: Fun
                 if (result instanceof Promise) {
 
                     result.then((result: any) => {
-                        res.send(result);
+                        res.send(serialize(result));
+                        // res.json(serialize(result));
+                    }).catch((err) => {
+                        // TODO: return REST error message
+                        res.send(err);
                     });
+
                 } else {
-                    res.send(result)
+                    res.send(result);
                 }
             }
         });
-    }
+    };
 }

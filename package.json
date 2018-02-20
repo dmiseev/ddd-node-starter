@@ -13,6 +13,7 @@
     "@types/node": "^7.0.22",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
+    "class-transformer": "^0.1.9",
     "express": "^4.13.4",
     "inversify": "^2.0.0-beta.5",
     "inversify-dts": "^1.0.0",
