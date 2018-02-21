@@ -17,14 +17,13 @@ export class AuthService {
      */
     public signIn(email: string, password: string) {
 
-        this.userRepository.byEmail(email).then((user: User) => {
+        return this.userRepository.byEmail(email).then((user: User) => {
 
-            bcrypt.compare(password, user.password, function (error, result) {
+            if (bcrypt.compareSync(password, user.password)) {
+                return {token: jwt.sign({id: user.id}, process.env.JWT_SECRET)};
+            }
 
-                if (!result) return;
-
-                return jwt.sign({id: user.id}, process.env.JWT_SECRET);
-            });
+            return;
         });
 
     }
