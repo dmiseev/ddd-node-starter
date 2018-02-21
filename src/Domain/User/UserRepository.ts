@@ -14,6 +14,12 @@ export interface UserRepository {
     byId(id: number): Promise<User>;
 
     /**
+     * @param {string} email
+     * @returns {Promise<User>}
+     */
+    byEmail(email: string): Promise<User>;
+
+    /**
      * @param {User} user
      */
     store(user: User): Promise<User>;

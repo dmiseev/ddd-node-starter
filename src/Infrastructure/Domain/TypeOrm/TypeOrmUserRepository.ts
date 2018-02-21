@@ -34,6 +34,18 @@ export class TypeOrmUserRepository implements UserRepository{
     }
 
     /**
+     * @param {string} email
+     * @returns {Promise<User>}
+     */
+    byEmail(email: string): Promise<User> {
+
+        return this.entityManager.createQueryBuilder(User, 'u')
+            .where('u.email = :email')
+            .setParameters({ email })
+            .getOne();
+    }
+
+    /**
      * @param {User} user
      * @returns {Promise<User>}
      */

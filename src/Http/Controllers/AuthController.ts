@@ -15,7 +15,17 @@ export class AuthController {
      */
     @Post('/sign-in')
     public async signIn(request: Request) {
+
         // TODO: read this - https://github.com/inversify/InversifyJS/issues/487
+
+        let token = this.userService.signIn(
+            request.body.email,
+            request.body.password
+        );
+
+        console.log(token);
+
+        return token;
     }
 
     /**

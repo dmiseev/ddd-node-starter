@@ -1,6 +1,7 @@
 import { injectable, inject } from 'inversify';
 import { UserRepository } from '../Domain/User/UserRepository';
 import * as bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
 import { User } from '../Domain/User/User';
 
 @injectable()
@@ -16,7 +17,16 @@ export class AuthService {
      */
     public signIn(email: string, password: string) {
 
-        // TODO: implement it
+        this.userRepository.byEmail(email).then((user: User) => {
+
+            bcrypt.compare(password, user.password, function (error, result) {
+
+                if (!result) return;
+
+                return jwt.sign({id: user.id}, process.env.JWT_SECRET);
+            });
+        });
+
     }
 
     /**
