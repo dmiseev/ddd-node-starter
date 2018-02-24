@@ -3,6 +3,7 @@ import { UserRepository } from '../Domain/User/UserRepository';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { User } from '../Domain/User/User';
+import { UserNotFound } from "../Domain/User/UserNotFound";
 
 @injectable()
 export class AuthService {
@@ -23,7 +24,7 @@ export class AuthService {
                 return {token: jwt.sign({id: user.id}, process.env.JWT_SECRET)};
             }
 
-            return;
+            throw UserNotFound.authorized();
         });
 
     }

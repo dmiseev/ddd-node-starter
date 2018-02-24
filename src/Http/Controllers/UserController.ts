@@ -1,10 +1,11 @@
-import { Request, Response } from 'express';
+import { Request, Response, RequestHandler } from 'express';
 import { Controller, Get, Post } from '../../framework/decorators';
 import { injectable, inject } from 'inversify';
 import { UserService } from '../../Services/UserService';
 import { User } from '../../Domain/User/User';
+import { authMiddleware, loggerMiddleware } from "../../framework/middlewares";
 
-@Controller('/users')
+@Controller('/users', loggerMiddleware)
 @injectable()
 export class UserController {
 
@@ -13,7 +14,7 @@ export class UserController {
     /**
      * @returns {Promise<User[]>}
      */
-    @Get('/')
+    @Get('/', authMiddleware)
     public async all(): Promise<User[]> {
         return await this.userService.all();
     }
@@ -22,23 +23,8 @@ export class UserController {
      * @param {Request} request
      * @returns {Promise<User>}
      */
-    @Get('/:id')
+    @Get('/:id', authMiddleware)
     public async byId(request: Request): Promise<User> {
         return await this.userService.byId(parseInt(request.params.id));
-    }
-
-    /**
-     * @param {Request} request
-     * @returns {Promise<User>}
-     */
-    @Post('/')
-    public async store(request: Request): Promise<User> {
-        // TODO: use DTO
-        return await this.userService.store(
-            request.body.email,
-            request.body.password,
-            request.body.firstName,
-            request.body.lastName
-        );
     }
 }

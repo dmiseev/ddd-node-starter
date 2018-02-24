@@ -27,6 +27,8 @@ export class TypeOrmUserRepository implements UserRepository{
      */
     async byId(id: number): Promise<User> {
 
+        // TODO: throw exception if not exists
+
         return this.entityManager.createQueryBuilder(User, 'u')
             .where('u.id = :id')
             .setParameters({ id })

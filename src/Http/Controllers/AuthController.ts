@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { Controller, Get, Post } from '../../framework/decorators';
 import { injectable, inject } from 'inversify';
 import { AuthService } from '../../Services/AuthService';
+import { authMiddleware } from "../../framework/middlewares";
 
 @Controller('/auth')
 @injectable()
@@ -43,7 +44,7 @@ export class AuthController {
      * @param {Request} request
      * @returns {Promise<void>}
      */
-    @Get('/token')
+    @Get('/token', authMiddleware)
     public async refresh(request: Request) {
 
     }
