@@ -1,8 +1,9 @@
 import { Request } from 'express';
 import { Controller, Get } from '../../framework/decorators';
 import { injectable } from 'inversify';
+import { loggerMiddleware } from "../Middleware/CustomMiddleware";
 
-@Controller('/')
+@Controller('/', loggerMiddleware)
 @injectable()
 export class PageController {
 

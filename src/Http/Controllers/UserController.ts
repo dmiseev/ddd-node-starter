@@ -1,11 +1,11 @@
 import { Request, Response, RequestHandler } from 'express';
-import { Controller, Get, Post } from '../../framework/decorators';
+import { Controller, Get } from '../../framework/decorators';
 import { injectable, inject } from 'inversify';
 import { UserService } from '../../Services/UserService';
 import { User } from '../../Domain/User/User';
-import { authMiddleware, loggerMiddleware } from "../../framework/middlewares";
+import { authMiddleware } from "../Middleware/CustomMiddleware";
 
-@Controller('/users', loggerMiddleware)
+@Controller('/users')
 @injectable()
 export class UserController {
 

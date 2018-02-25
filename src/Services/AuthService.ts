@@ -4,6 +4,8 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { User } from '../Domain/User/User';
 import { UserNotFound } from "../Domain/User/UserNotFound";
+import { SignInDTO } from "../Infrastructure/DTO/Auth/SignInDTO";
+import { SignUpDTO } from "../Infrastructure/DTO/Auth/SignUpDTO";
 
 @injectable()
 export class AuthService {
@@ -13,14 +15,13 @@ export class AuthService {
     }
 
     /**
-     * @param {string} email
-     * @param {string} password
+     * @param {SignInDTO} DTO
      */
-    public signIn(email: string, password: string) {
+    public signIn(DTO: SignInDTO) {
 
-        return this.userRepository.byEmail(email).then((user: User) => {
+        return this.userRepository.byEmail(DTO.email).then((user: User) => {
 
-            if (bcrypt.compareSync(password, user.password)) {
+            if (bcrypt.compareSync(DTO.password, user.password)) {
                 return {token: jwt.sign({id: user.id}, process.env.JWT_SECRET)};
             }
 
@@ -30,20 +31,17 @@ export class AuthService {
     }
 
     /**
-     * @param {string} email
-     * @param {string} password
-     * @param {string} firstName
-     * @param {string} lastName
+     * @param {SignUpDTO} DTO
      *
      * @returns {Promise<User>}
      */
-    public signUp(email: string, password: string, firstName: string, lastName: string) {
+    public signUp(DTO: SignUpDTO) {
 
         let user = User.register(
-            email,
-            bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
-            firstName,
-            lastName
+            DTO.email,
+            bcrypt.hashSync(DTO.password, bcrypt.genSaltSync(10)),
+            DTO.firstName,
+            DTO.lastName
         );
 
         return this.userRepository.store(user);

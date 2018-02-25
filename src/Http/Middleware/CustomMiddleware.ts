@@ -1,8 +1,11 @@
 import * as express from 'express';
 import * as jwt from 'jsonwebtoken';
 import { getManager } from "typeorm";
-import { User } from "../Domain/User/User";
+import { User } from "../../Domain/User/User";
 
+/**
+ * Show REST info in logs
+ */
 export function loggerMiddleware(req: express.Request, res: any, next: any) {
 
     let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
@@ -32,7 +35,7 @@ export function authMiddleware(req: express.Request, res: any, next: any) {
         .setParameter('id', userJson.id)
         .getOne()
         .then((user: User) => {
-            console.log(user);
+            // console.log(user);
             next();
         })
         .catch((err) => {
