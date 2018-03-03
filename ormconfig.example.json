@@ -9,7 +9,8 @@
   "synchronize": "all",
   "logging": false,
   "entities": [
-    "bin/Domain/User/User.js"
+    "bin/Domain/User/User.js",
+    "bin/Domain/Image/Image.js"
   ],
   "migrations": [
     "bin/database/migrations/*.js"

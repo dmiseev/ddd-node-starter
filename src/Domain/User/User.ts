@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index } from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, Index, OneToMany} from 'typeorm';
 import { Exclude } from 'class-transformer';
+import {Image} from '../Image/Image';
 
 @Entity('users')
 @Index("users_email_sequence", ['email'], { unique: true })
@@ -23,6 +24,9 @@ export class User {
 
     @Column({name: 'created_at', type: 'timestamp', nullable: false})
     createdAt: Date;
+
+    @OneToMany(type => Image, image => image.user)
+    images: Image[];
 
     constructor(email: string, password: string, firstName: string, lastName: string, createdAt: Date) {
         this.email = email;

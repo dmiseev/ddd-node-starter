@@ -3,7 +3,7 @@ import { User } from './User';
 export interface UserRepository {
 
     /**
-     * @returns {Promise<User>}
+     * @returns {Promise<User[]>}
      */
     all(): Promise<User[]>;
 

@@ -18,7 +18,9 @@ export class TypeOrmUserRepository implements UserRepository{
      */
     async all(): Promise<User[]> {
 
-        return this.entityManager.createQueryBuilder(User, 'u').getMany();
+        return this.entityManager.createQueryBuilder(User, 'u')
+            .leftJoinAndSelect('u.images', 'i')
+            .getMany();
     }
 
     /**

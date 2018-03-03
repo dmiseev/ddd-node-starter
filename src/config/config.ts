@@ -9,11 +9,14 @@ import { UserService } from '../Services/UserService';
 import { TypeOrmUserRepository } from '../Infrastructure/Domain/TypeOrm/TypeOrmUserRepository';
 import { UserRepository } from '../Domain/User/UserRepository';
 import { AuthService } from '../Services/AuthService';
+import { ImageRepository } from '../Domain/Image/ImageRepository';
+import { TypeOrmImageRepository } from '../Infrastructure/Domain/TypeOrm/TypeOrmImageRepository';
 
 // set up kernel
 let kernel: Kernel = new Kernel();
 
 kernel.bind<UserRepository>('UserRepository').to(TypeOrmUserRepository);
+kernel.bind<ImageRepository>('ImageRepository').to(TypeOrmImageRepository);
 
 kernel.bind<UserService>('UserService').to(UserService);
 kernel.bind<AuthService>('AuthService').to(AuthService);
