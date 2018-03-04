@@ -1,9 +1,9 @@
-import {Entity, PrimaryGeneratedColumn, Column, Index, OneToMany} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Index, OneToMany } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import {Image} from '../Image/Image';
+import { Image } from '../Image/Image';
 
 @Entity('users')
-@Index("users_email_sequence", ['email'], { unique: true })
+@Index('users_email_sequence', ['email'], {unique: true})
 export class User {
 
     @PrimaryGeneratedColumn()
@@ -13,7 +13,7 @@ export class User {
     email: string;
 
     @Exclude()
-    @Column({name: 'password', type: 'varchar', length: 60, nullable: false })
+    @Column({name: 'password', type: 'varchar', length: 60, nullable: false})
     password: string;
 
     @Column({name: 'first_name', type: 'varchar', length: 255, nullable: false})

@@ -1,12 +1,11 @@
-import { Request, Response, RequestHandler } from 'express';
-import { Controller, Get } from '../../framework/decorators';
-import { injectable, inject } from 'inversify';
+import { Request } from 'express';
+import { controller, httpGet } from 'inversify-express-utils';
+import { inject } from 'inversify';
 import { UserService } from '../../Services/UserService';
 import { User } from '../../Domain/User/User';
-import { authMiddleware } from "../Middleware/CustomMiddleware";
+import { authMiddleware, loggerMiddleware } from '../Middleware/CustomMiddleware';
 
-@Controller('/users')
-@injectable()
+@controller('/users', loggerMiddleware, authMiddleware)
 export class UserController {
 
     constructor(@inject('UserService') private userService: UserService) {}
@@ -14,7 +13,7 @@ export class UserController {
     /**
      * @returns {Promise<User[]>}
      */
-    @Get('/', authMiddleware)
+    @httpGet('/')
     public async all(): Promise<User[]> {
         return await this.userService.all();
     }
@@ -23,7 +22,7 @@ export class UserController {
      * @param {Request} request
      * @returns {Promise<User>}
      */
-    @Get('/:id', authMiddleware)
+    @httpGet('/:id')
     public async byId(request: Request): Promise<User> {
         return await this.userService.byId(parseInt(request.params.id));
     }
