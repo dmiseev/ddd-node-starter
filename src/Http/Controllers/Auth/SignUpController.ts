@@ -1,14 +1,14 @@
 import { Request } from 'express';
 import { controller, httpPost } from 'inversify-express-utils';
 import { inject } from 'inversify';
-import { AuthService } from '../../../Services/AuthService';
 import { SignUpDTO } from "../../../Infrastructure/DTO/Auth/SignUpDTO";
 import { loggerMiddleware } from '../../Middleware/CustomMiddleware';
+import { IAuthService } from '../../../Domain/Core/IAuthService';
 
 @controller('/auth/sign-up', loggerMiddleware)
 export class SignUpController {
 
-    constructor(@inject('AuthService') private userService: AuthService) {}
+    constructor(@inject('IAuthService') private authService: IAuthService) {}
 
     /**
      * @param {Request} request
@@ -17,7 +17,7 @@ export class SignUpController {
     @httpPost('/')
     public async signUp(request: Request) {
 
-        return this.userService.signUp(
+        return this.authService.signUp(
             SignUpDTO.fromRequest(request)
         );
     }

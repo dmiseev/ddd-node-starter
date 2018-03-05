@@ -1,14 +1,14 @@
 import { Request } from 'express';
 import { controller, httpGet } from 'inversify-express-utils';
 import { inject } from 'inversify';
-import { UserService } from '../../Services/UserService';
 import { User } from '../../Domain/User/User';
 import { authMiddleware, loggerMiddleware } from '../Middleware/CustomMiddleware';
+import { IUserService } from '../../Domain/User/IUserService';
 
 @controller('/users', loggerMiddleware, authMiddleware)
 export class UserController {
 
-    constructor(@inject('UserService') private userService: UserService) {}
+    constructor(@inject('IUserService') private userService: IUserService) {}
 
     /**
      * @returns {Promise<User[]>}

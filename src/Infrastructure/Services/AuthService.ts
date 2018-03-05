@@ -1,14 +1,15 @@
 import { injectable, inject } from 'inversify';
-import { UserRepository } from '../Domain/User/UserRepository';
+import { UserRepository } from '../../Domain/User/UserRepository';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { User } from '../Domain/User/User';
-import { UserNotFound } from "../Domain/User/UserNotFound";
-import { SignInDTO } from "../Infrastructure/DTO/Auth/SignInDTO";
-import { SignUpDTO } from "../Infrastructure/DTO/Auth/SignUpDTO";
+import { User } from '../../Domain/User/User';
+import { UserNotFound } from "../../Domain/User/UserNotFound";
+import { SignInDTO } from "../DTO/Auth/SignInDTO";
+import { SignUpDTO } from "../DTO/Auth/SignUpDTO";
+import { IAuthService } from '../../Domain/Core/IAuthService';
 
 @injectable()
-export class AuthService {
+export class AuthService implements IAuthService{
 
     constructor(@inject('UserRepository') private userRepository: UserRepository) {
         this.userRepository = userRepository;
@@ -16,8 +17,9 @@ export class AuthService {
 
     /**
      * @param {SignInDTO} DTO
+     * @returns {Promise<any>}
      */
-    public signIn(DTO: SignInDTO) {
+    public signIn(DTO: SignInDTO): Promise<any> {
 
         return this.userRepository.byEmail(DTO.email).then((user: User) => {
 
@@ -27,12 +29,10 @@ export class AuthService {
 
             throw UserNotFound.authorized();
         });
-
     }
 
     /**
      * @param {SignUpDTO} DTO
-     *
      * @returns {Promise<User>}
      */
     public signUp(DTO: SignUpDTO) {
@@ -45,14 +45,5 @@ export class AuthService {
         );
 
         return this.userRepository.store(user);
-    }
-
-    /**
-     * @param {string} email
-     * @param {string} password
-     */
-    public refresh(email: string, password: string) {
-
-        // TODO: implement it
     }
 }

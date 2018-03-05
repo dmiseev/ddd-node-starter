@@ -2,6 +2,7 @@ import { EntityRepository, EntityManager, getManager } from 'typeorm';
 import { UserRepository } from '../../../Domain/User/UserRepository';
 import { User } from '../../../Domain/User/User';
 import { injectable } from 'inversify';
+import { UserNotFound } from '../../../Domain/User/UserNotFound';
 
 @injectable()
 @EntityRepository()
@@ -29,12 +30,14 @@ export class TypeOrmUserRepository implements UserRepository{
      */
     async byId(id: number): Promise<User> {
 
-        // TODO: throw exception if not exists
-
         return this.entityManager.createQueryBuilder(User, 'u')
             .where('u.id = :id')
             .setParameters({ id })
-            .getOne();
+            .getOne()
+            .then((user: User) => {
+                if (!user) throw UserNotFound.fromId(id);
+                return user;
+            });
     }
 
     /**
