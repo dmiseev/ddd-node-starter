@@ -23,7 +23,7 @@ export class AuthService implements IAuthService{
 
         return this.userRepository.byEmail(DTO.email).then((user: User) => {
 
-            if (bcrypt.compareSync(DTO.password, user.password)) {
+            if (user && bcrypt.compareSync(DTO.password, user.password)) {
                 return {token: jwt.sign({id: user.id}, process.env.JWT_SECRET)};
             }
 

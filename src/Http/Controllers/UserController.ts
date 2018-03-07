@@ -8,13 +8,17 @@ import { IUserService } from '../../Domain/User/IUserService';
 @controller('/users', loggerMiddleware, authMiddleware)
 export class UserController {
 
-    constructor(@inject('IUserService') private userService: IUserService) {}
+    constructor(@inject('IUserService') private userService: IUserService) {
+    }
 
     /**
      * @returns {Promise<User[]>}
      */
     @httpGet('/')
     public async all(): Promise<User[]> {
+
+        // TODO: exclude password field from user entity
+
         return await this.userService.all();
     }
 

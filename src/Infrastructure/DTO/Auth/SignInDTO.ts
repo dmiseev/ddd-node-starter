@@ -12,7 +12,7 @@ export class SignInDTO{
     }
 
     /**
-     * @param {} request
+     * @param {Request} request
      * @returns {SignInDTO}
      */
     static fromRequest(request: Request)

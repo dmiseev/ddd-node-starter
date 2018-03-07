@@ -9,20 +9,51 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({name: 'email', type: 'varchar', length: 255, nullable: false})
+    @Column({
+        name: 'email',
+        type: 'varchar',
+        length: 255,
+        nullable: false
+    })
     email: string;
 
     @Exclude()
-    @Column({name: 'password', type: 'varchar', length: 60, nullable: false})
+    @Column({
+        name: 'password',
+        type: 'varchar',
+        length: 60,
+        nullable: false
+    })
     password: string;
 
-    @Column({name: 'first_name', type: 'varchar', length: 255, nullable: false})
+    @Column({
+        name: 'first_name',
+        type: 'varchar',
+        length: 255,
+        nullable: false
+    })
     firstName: string;
 
-    @Column({name: 'last_name', type: 'varchar', length: 255, nullable: false})
+    @Column({
+        name: 'last_name',
+        type: 'varchar',
+        length: 255,
+        nullable: false
+    })
     lastName: string;
 
-    @Column({name: 'created_at', type: 'timestamp', nullable: false})
+    @Column({
+        name: 'is_active',
+        type: 'boolean',
+        default: false
+    })
+    isActive: string;
+
+    @Column({
+        name: 'created_at',
+        type: 'timestamp',
+        nullable: false
+    })
     createdAt: Date;
 
     @OneToMany(type => Image, image => image.user)

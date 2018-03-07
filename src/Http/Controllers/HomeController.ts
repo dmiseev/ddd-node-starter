@@ -1,4 +1,4 @@
-import { loggerMiddleware } from "../Middleware/CustomMiddleware";
+import { loggerMiddleware } from '../Middleware/CustomMiddleware';
 import { controller, httpGet } from 'inversify-express-utils';
 
 @controller('/', loggerMiddleware)
