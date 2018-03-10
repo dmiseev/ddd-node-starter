@@ -17,4 +17,13 @@ export class UserNotFound extends Error{
     {
         return new UserNotFound('User with ID #' + id + ' not found.')
     }
+
+    /**
+     * @param {string} email
+     * @returns {UserNotFound}
+     */
+    static fromEmail(email: string): UserNotFound
+    {
+        return new UserNotFound('User with email ' + email + ' not found.')
+    }
 }

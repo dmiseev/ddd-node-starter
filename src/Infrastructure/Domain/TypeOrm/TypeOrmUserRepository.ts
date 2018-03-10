@@ -49,7 +49,11 @@ export class TypeOrmUserRepository implements UserRepository{
         return this.entityManager.createQueryBuilder(User, 'u')
             .where('u.email = :email')
             .setParameters({ email })
-            .getOne();
+            .getOne()
+            .then((user: User) => {
+                if (!user) throw UserNotFound.fromEmail(email);
+                return user;
+            });
     }
 
     /**

@@ -15,6 +15,7 @@ import { SignInController } from '../Http/Controllers/Auth/SignInController';
 import { SignUpController } from '../Http/Controllers/Auth/SignUpController';
 import { IUserService } from '../Domain/User/IUserService';
 import { IAuthService } from '../Domain/Core/IAuthService';
+import { UploadController } from '../Http/Controllers/UploadController';
 
 let container: Container = new Container();
 
@@ -28,5 +29,6 @@ container.bind<HomeController>(TYPES.Controller).to(HomeController);
 container.bind<UserController>(TYPES.Controller).to(UserController);
 container.bind<SignInController>(TYPES.Controller).to(SignInController);
 container.bind<SignUpController>(TYPES.Controller).to(SignUpController);
+container.bind<UploadController>(TYPES.Controller).to(UploadController);
 
 export default container;
