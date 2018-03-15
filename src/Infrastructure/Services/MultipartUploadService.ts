@@ -14,12 +14,7 @@ export class MultipartUploadService implements IUploadService{
             throw new Error('Could not upload image.');
         }
 
-        if (request.file.mimetype !== 'image/jpeg'
-            && request.file.mimetype !== 'image/png'
-            && request.file.mimetype !== 'image/gif')
-        {
-            throw new Error('Could not upload image. The file does not match the type: jpeg, png, gif.');
-        }
+        console.log(request.file);
 
         // TODO: need finish
 
