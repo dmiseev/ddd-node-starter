@@ -19,4 +19,22 @@ export class Image {
     @ManyToOne(type => User, user => user.images)
     @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
     user: User;
+
+    constructor(user: User, name: string, path: string, createdAt: Date) {
+        this.user = user;
+        this.name = name;
+        this.path = path;
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * @param {User} user
+     * @param {string} name
+     * @param {string} path
+     *
+     * @returns {Image}
+     */
+    static register(user: User, name: string, path: string): Image {
+        return new Image(user, name, path, new Date());
+    }
 }

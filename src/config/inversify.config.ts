@@ -19,6 +19,9 @@ import { UploadController } from '../Http/Controllers/UploadController';
 import { MultipartUploadService } from '../Infrastructure/Services/MultipartUploadService';
 import { IUploadService } from '../Domain/Core/IUploadService';
 import { ProfileController } from '../Http/Controllers/ProfileController';
+import { ImageController } from '../Http/Controllers/ImageController';
+import { IImageService } from '../Domain/Image/IImageService';
+import { ImageService } from '../Infrastructure/Services/ImageService';
 
 let container: Container = new Container();
 
@@ -28,6 +31,7 @@ container.bind<ImageRepository>('ImageRepository').to(TypeOrmImageRepository);
 container.bind<IUserService>('IUserService').to(UserService);
 container.bind<IAuthService>('IAuthService').to(AuthService);
 container.bind<IUploadService>('IUploadService').to(MultipartUploadService);
+container.bind<IImageService>('IImageService').to(ImageService);
 
 container.bind<HomeController>(TYPES.Controller).to(HomeController);
 container.bind<UserController>(TYPES.Controller).to(UserController);
@@ -35,5 +39,6 @@ container.bind<ProfileController>(TYPES.Controller).to(ProfileController);
 container.bind<SignInController>(TYPES.Controller).to(SignInController);
 container.bind<SignUpController>(TYPES.Controller).to(SignUpController);
 container.bind<UploadController>(TYPES.Controller).to(UploadController);
+container.bind<ImageController>(TYPES.Controller).to(ImageController);
 
 export default container;
