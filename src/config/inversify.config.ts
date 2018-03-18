@@ -18,6 +18,7 @@ import { IAuthService } from '../Domain/Core/IAuthService';
 import { UploadController } from '../Http/Controllers/UploadController';
 import { MultipartUploadService } from '../Infrastructure/Services/MultipartUploadService';
 import { IUploadService } from '../Domain/Core/IUploadService';
+import { ProfileController } from '../Http/Controllers/ProfileController';
 
 let container: Container = new Container();
 
@@ -30,6 +31,7 @@ container.bind<IUploadService>('IUploadService').to(MultipartUploadService);
 
 container.bind<HomeController>(TYPES.Controller).to(HomeController);
 container.bind<UserController>(TYPES.Controller).to(UserController);
+container.bind<ProfileController>(TYPES.Controller).to(ProfileController);
 container.bind<SignInController>(TYPES.Controller).to(SignInController);
 container.bind<SignUpController>(TYPES.Controller).to(SignUpController);
 container.bind<UploadController>(TYPES.Controller).to(UploadController);

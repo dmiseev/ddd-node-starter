@@ -1,25 +1,22 @@
 import { injectable } from 'inversify';
 import { IUploadService } from '../../Domain/Core/IUploadService';
+import { IRequest } from '../../Utils/Request/custom';
 
 @injectable()
 export class MultipartUploadService implements IUploadService{
 
     /**
-     * @param {Request} request
+     * @param {IRequest} request
      * @returns {Object}
      */
-    fromRequest(request): Object {
+    fromRequest(request: IRequest): Object {
 
-        if (!request.file) {
-            throw new Error('Could not upload image.');
-        }
-
-        console.log(request.file);
-
-        // TODO: need finish
+        const imagePath = 'uploads/' + request.user.id + '/' + request.file.filename;
 
         return {
-            imagePath: request.get('host') + '/uploads/' + request.file.filename + '.jpeg'
+            message: 'Image has been uploaded successfully.',
+            imagePath: imagePath,
+            imageFullPath: request.protocol + '://' + request.get('host') + '/' + imagePath
         }
     }
 }

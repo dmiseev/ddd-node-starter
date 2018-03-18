@@ -4,7 +4,10 @@ import container from './config/inversify.config';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import * as bodyParser from 'body-parser';
 import * as helmet from 'helmet';
+import * as express from 'express';
 import * as validate from 'express-validation';
+import * as path from "path";
+import { loggerMiddleware } from './Http/Middleware/CustomMiddleware';
 
 createConnection().then(async connection => {
 
@@ -15,7 +18,9 @@ createConnection().then(async connection => {
     server.setConfig((app) => {
         app.use(bodyParser.urlencoded({extended: true}));
         app.use(bodyParser.json());
+        app.use('/uploads', express.static(path.resolve('./public/uploads')));
         app.use(helmet());
+        app.use(loggerMiddleware);
     });
 
     server.setErrorConfig((app) => {

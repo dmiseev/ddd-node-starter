@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as jwt from 'jsonwebtoken';
 import { getManager } from "typeorm";
 import { User } from "../../Domain/User/User";
+import { IRequest } from '../../Utils/Request/custom';
 
 /**
  * Show REST info in logs
@@ -14,7 +15,7 @@ export function loggerMiddleware(req: express.Request, res: any, next: any) {
     next();
 }
 
-export function authMiddleware(req: express.Request, res: any, next: any) {
+export function authMiddleware(req: IRequest, res: any, next: any) {
 
     let token = req.body.token || req.query.token || req.headers['x-access-token'];
 
@@ -35,7 +36,8 @@ export function authMiddleware(req: express.Request, res: any, next: any) {
         .setParameter('id', userJson.id)
         .getOne()
         .then((user: User) => {
-            // console.log(user);
+            req.user = user;
+
             next();
         })
         .catch((err) => {

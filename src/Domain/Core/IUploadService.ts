@@ -1,9 +1,10 @@
+import { IRequest } from '../../Utils/Request/custom';
 
 export interface IUploadService {
 
     /**
-     * @param {Request} request
+     * @param {IRequest} request
      * @returns {Object}
      */
-    fromRequest(request): Object;
+    fromRequest(request: IRequest): Object;
 }
