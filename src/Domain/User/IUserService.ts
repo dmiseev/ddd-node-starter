@@ -14,4 +14,10 @@ export interface IUserService {
      * @returns {Promise<User>}
      */
     byId(id: number): Promise<User>;
+
+    /**
+     * @param {number} id
+     * @returns {Promise<void>}
+     */
+    remove(id: number): Promise<void>;
 }

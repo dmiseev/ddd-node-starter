@@ -28,4 +28,17 @@ export class UserService implements IUserService {
 
         return this.userRepository.byId(id);
     }
+
+    /**
+     * @param {number} id
+     * @returns {Promise<void>}
+     */
+    public remove(id: number): Promise<void> {
+
+        return this.userRepository.byId(id)
+            .then((user: User) => {
+                user.remove();
+                this.userRepository.store(user);
+            });
+    }
 }

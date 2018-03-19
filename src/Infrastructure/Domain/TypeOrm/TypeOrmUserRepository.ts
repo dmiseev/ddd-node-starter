@@ -22,6 +22,7 @@ export class TypeOrmUserRepository implements UserRepository {
     public all(pagination: Pagination): Promise<[User[], number]> {
 
         return this.entityManager.createQueryBuilder(User, 'u')
+            .where('u.deletedAt IS NULL')
             .leftJoinAndSelect('u.images', 'i')
             .orderBy('u.id', 'DESC')
             .skip(pagination.offset())
@@ -36,7 +37,8 @@ export class TypeOrmUserRepository implements UserRepository {
     public byId(id: number): Promise<User> {
 
         return this.entityManager.createQueryBuilder(User, 'u')
-            .where('u.id = :id')
+            .where('u.deletedAt IS NULL')
+            .andWhere('u.id = :id')
             .setParameters({id})
             .getOne()
             .then((user: User) => {
@@ -52,7 +54,8 @@ export class TypeOrmUserRepository implements UserRepository {
     public byEmail(email: string): Promise<User> {
 
         return this.entityManager.createQueryBuilder(User, 'u')
-            .where('u.email = :email')
+            .where('u.deletedAt IS NULL')
+            .andWhere('u.email = :email')
             .setParameters({email})
             .getOne()
             .then((user: User) => {

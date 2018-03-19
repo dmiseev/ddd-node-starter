@@ -56,6 +56,13 @@ export class User {
     })
     createdAt: Date;
 
+    @Column({
+        name: 'deleted_at',
+        type: 'timestamp',
+        nullable: true
+    })
+    deletedAt: Date;
+
     @OneToMany(type => Image, image => image.user)
     images: Image[];
 
@@ -75,7 +82,11 @@ export class User {
      *
      * @returns {User}
      */
-    static register(email: string, password: string, firstName: string, lastName: string) {
+    static register(email: string, password: string, firstName: string, lastName: string): User {
         return new User(email, password, firstName, lastName, new Date());
+    }
+
+    public remove(): void {
+        this.deletedAt = new Date();
     }
 }

@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { controller, httpGet } from 'inversify-express-utils';
+import { controller, httpDelete, httpGet } from 'inversify-express-utils';
 import { inject } from 'inversify';
 import { User } from '../../Domain/User/User';
 import { authMiddleware } from '../Middleware/CustomMiddleware';
@@ -44,6 +44,19 @@ export class UserController {
             .then((user: User) => {
                 response.set('X-Items-Count', '1');
                 return serialize(user);
+            });
+    }
+
+    /**
+     * @param {Request} request
+     * @param {Response} response
+     */
+    @httpDelete('/:id')
+    public async remove(request: IRequest, response: Response) {
+
+        return await this.userService.remove(parseInt(request.params.id))
+            .then(() => {
+                response.status(204);
             });
     }
 }
