@@ -24,8 +24,8 @@ export class TypeOrmUserRepository implements UserRepository {
         return this.entityManager.createQueryBuilder(User, 'u')
             .leftJoinAndSelect('u.images', 'i')
             .orderBy('u.id', 'DESC')
-            .offset(pagination.offset())
-            .limit(pagination.perPage())
+            .skip(pagination.offset())
+            .take(pagination.perPage())
             .getManyAndCount();
     }
 

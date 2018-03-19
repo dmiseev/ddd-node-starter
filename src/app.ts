@@ -7,7 +7,7 @@ import * as helmet from 'helmet';
 import * as express from 'express';
 import * as validate from 'express-validation';
 import * as path from "path";
-import { loggerMiddleware } from './Http/Middleware/CustomMiddleware';
+import { jsonMiddleware, loggerMiddleware } from './Http/Middleware/CustomMiddleware';
 
 createConnection().then(async connection => {
 
@@ -19,8 +19,8 @@ createConnection().then(async connection => {
         app.use(bodyParser.urlencoded({extended: true}));
         app.use(bodyParser.json());
         app.use('/uploads', express.static(path.resolve('./public/uploads')));
+        app.use(jsonMiddleware, loggerMiddleware);
         app.use(helmet());
-        app.use(loggerMiddleware);
     });
 
     server.setErrorConfig((app) => {
