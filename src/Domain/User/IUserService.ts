@@ -1,11 +1,13 @@
 import { User } from './User';
+import { Pagination } from '../Core/Pagination';
 
 export interface IUserService {
 
     /**
+     * @param {Pagination} pagination
      * @returns {Promise<User[]>}
      */
-    all(): Promise<User[]>;
+    all(pagination: Pagination): Promise<[User[], number]>;
 
     /**
      * @param {number} id

@@ -2,6 +2,7 @@ import { injectable, inject } from 'inversify';
 import { User } from '../../Domain/User/User';
 import { UserRepository } from '../../Domain/User/UserRepository';
 import { IUserService } from '../../Domain/User/IUserService';
+import { Pagination } from '../../Domain/Core/Pagination';
 
 @injectable()
 export class UserService implements IUserService {
@@ -11,11 +12,12 @@ export class UserService implements IUserService {
     }
 
     /**
+     * @param {Pagination} pagination
      * @returns {Promise<User[]>}
      */
-    public all(): Promise<User[]> {
+    public all(pagination: Pagination): Promise<[User[], number]> {
 
-        return this.userRepository.all();
+        return this.userRepository.all(pagination);
     }
 
     /**
