@@ -1,48 +1,48 @@
-import { EntityRepository, EntityManager, getManager } from 'typeorm';
+import { EntityRepository, SelectQueryBuilder } from 'typeorm';
 import { ImageRepository } from '../../../Domain/Image/ImageRepository';
 import { Image } from '../../../Domain/Image/Image';
 import { injectable } from 'inversify';
+import { TypeOrmRepository } from './TypeOrmRepository';
+import { ObjectType } from 'typeorm/common/ObjectType';
+import { ImageNotFound } from '../../../Domain/Image/ImageNotFound';
 
 @injectable()
 @EntityRepository()
-export class TypeOrmImageRepository implements ImageRepository {
-
-    private entityManager: EntityManager;
-
-    constructor() {
-        this.entityManager = getManager();
-    }
+export class TypeOrmImageRepository extends TypeOrmRepository implements ImageRepository {
 
     /**
      * @returns {Promise<Image[]>}
      */
-    async all(): Promise<Image[]> {
+    public all(): Promise<Image[]> {
 
-        return this.entityManager.createQueryBuilder(Image, 'i').getMany();
+        return this.createQueryBuilder()
+            .getMany();
     }
 
     /**
      * @param {number} id
      * @returns {Promise<Image>}
      */
-    async byId(id: number): Promise<Image> {
+    public byId(id: number): Promise<Image> {
 
-        // TODO: throw exception if not exists
-
-        return this.entityManager.createQueryBuilder(Image, 'i')
-            .where('i.id = :id')
+        return this.createQueryBuilder()
+            .andWhere('i.id = :id')
             .setParameters({id})
-            .getOne();
+            .getOne()
+            .then((image: Image) => {
+                if (!image) throw ImageNotFound.fromId(id);
+                return image;
+            });
     }
 
     /**
      * @param {number} userId
      * @returns {Promise<Image[]>}
      */
-    byUserId(userId: number): Promise<Image[]> {
+    public byUserId(userId: number): Promise<Image[]> {
 
-        return this.entityManager.createQueryBuilder(Image, 'i')
-            .where('i.user = :userId')
+        return this.createQueryBuilder()
+            .andWhere('i.user = :userId')
             .setParameters({userId})
             .getMany();
     }
@@ -51,8 +51,15 @@ export class TypeOrmImageRepository implements ImageRepository {
      * @param {Image} image
      * @returns {Promise<Image>}
      */
-    async store(image: Image): Promise<Image> {
+    public store(image: Image): Promise<Image> {
 
         return this.entityManager.save(image);
+    }
+
+    protected createQueryBuilder(entityClass: ObjectType<any> = Image, alias: string = 'i'): SelectQueryBuilder<any> {
+
+        return this.entityManager.createQueryBuilder(entityClass, alias)
+            .select(alias)
+            .where(alias + '.deletedAt IS NULL');
     }
 }

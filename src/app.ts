@@ -28,6 +28,7 @@ createConnection().then(async connection => {
         app.use((err, req, res, next) => {
 
             if (err instanceof validate.ValidationError) {
+                err.status = 422;
                 res.status(err.status).json(Object.assign({errorMessage: 'Validation error.'}, {error: err}));
                 return;
             }
@@ -40,6 +41,7 @@ createConnection().then(async connection => {
 
             res.status(500).send(err.stack);
 
+            // TODO: uncomment when production
             // res.status(500).send('Something broke!');
         });
     });
