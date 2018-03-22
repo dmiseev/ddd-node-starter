@@ -1,18 +1,43 @@
-import { controller, httpGet } from 'inversify-express-utils';
+import { controller, httpGet, httpPut } from 'inversify-express-utils';
 import { User } from '../../Domain/User/User';
 import { authMiddleware } from '../Middleware/CustomMiddleware';
 import { IRequest } from '../../Utils/Request/custom';
+import { inject } from 'inversify';
+import { IUserService } from '../../Domain/User/IUserService';
+import { ProfileDTO } from '../../Infrastructure/DTO/Profile/ProfileDTO';
+import { Response } from 'express';
+import { serialize } from 'class-transformer';
 
 @controller('/users/me', authMiddleware)
 export class ProfileController {
 
+    constructor(@inject('IUserService') private userService: IUserService) {
+    }
+
     /**
      * @param {IRequest} request
-     * @returns {User}
+     * @param {Response} response
      */
     @httpGet('/')
-    public me(request: IRequest): User {
+    public me(request: IRequest, response: Response) {
 
-        return request.user;
+        response.set('X-Items-Count', '1');
+        return serialize(request.user);
+    }
+
+    /**
+     * @param {IRequest} request
+     * @param {Response} response
+     */
+    @httpPut('/')
+    public update(request: IRequest, response: Response) {
+
+        return this.userService.update(request.user.id, ProfileDTO.fromRequest(request)
+        ).then((user: User) => {
+            response.status(202);
+            response.set('X-Items-Count', '1');
+
+            return serialize(user);
+        });
     }
 }

@@ -1,5 +1,6 @@
 import { User } from './User';
 import { Pagination } from '../Core/Pagination';
+import { ProfileDTO } from '../../Infrastructure/DTO/Profile/ProfileDTO';
 
 export interface IUserService {
 
@@ -14,6 +15,13 @@ export interface IUserService {
      * @returns {Promise<User>}
      */
     byId(id: number): Promise<User>;
+
+    /**
+     * @param {number} id
+     * @param {ProfileDTO} DTO
+     * @returns {Promise<User>}
+     */
+    update(id: number, DTO: ProfileDTO): Promise<User>;
 
     /**
      * @param {number} id
