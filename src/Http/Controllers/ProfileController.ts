@@ -7,6 +7,8 @@ import { IUserService } from '../../Domain/User/IUserService';
 import { ProfileDTO } from '../../Infrastructure/DTO/Profile/ProfileDTO';
 import { Response } from 'express';
 import { serialize } from 'class-transformer';
+import * as validate from 'express-validation';
+import * as profileValidator from '../../Infrastructure/Validators/Profile/ProfileValidator';
 
 @controller('/users/me', authMiddleware)
 export class ProfileController {
@@ -29,7 +31,7 @@ export class ProfileController {
      * @param {IRequest} request
      * @param {Response} response
      */
-    @httpPut('/')
+    @httpPut('/', validate(profileValidator))
     public update(request: IRequest, response: Response) {
 
         return this.userService.update(request.user.id, ProfileDTO.fromRequest(request)
