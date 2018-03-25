@@ -50,7 +50,7 @@ export class UploadController {
             callback(null, true);
         }
     }).single('image'))
-    public async upload(request: IRequest) {
+    public upload(request: IRequest) {
 
         return this.uploadService.fromRequest(request);
     }

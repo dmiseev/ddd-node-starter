@@ -17,7 +17,7 @@ export function loggerMiddleware(req: express.Request, res: any, next: any) {
 
 export function jsonMiddleware(req: express.Request, res: any, next: any) {
     res.set('Content-Type', 'application/json');
-    res.set('X-Items-Count', '0');
+    res.set('X-Items-Count', '1');
     next();
 }
 

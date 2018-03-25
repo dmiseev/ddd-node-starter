@@ -18,12 +18,10 @@ export class ProfileController {
 
     /**
      * @param {IRequest} request
-     * @param {Response} response
      */
     @httpGet('/')
-    public me(request: IRequest, response: Response) {
+    public me(request: IRequest) {
 
-        response.set('X-Items-Count', '1');
         return serialize(request.user);
     }
 
@@ -34,12 +32,10 @@ export class ProfileController {
     @httpPut('/', validate(profileValidator))
     public update(request: IRequest, response: Response) {
 
-        return this.userService.update(request.user.id, ProfileDTO.fromRequest(request)
-        ).then((user: User) => {
-            response.status(202);
-            response.set('X-Items-Count', '1');
-
-            return serialize(user);
-        });
+        return this.userService.update(request.user.id, ProfileDTO.fromRequest(request))
+            .then((user: User) => {
+                response.status(202);
+                return serialize(user);
+            });
     }
 }
