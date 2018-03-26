@@ -22,11 +22,14 @@ import { ProfileController } from '../Http/Controllers/ProfileController';
 import { ImageController } from '../Http/Controllers/ImageController';
 import { IImageService } from '../Domain/Image/IImageService';
 import { ImageService } from '../Infrastructure/Services/ImageService';
+import { FriendRequestRepository } from '../Domain/FriendRequest/FriendRequestRepository';
+import { TypeOrmFriendRequestRepository } from '../Infrastructure/Domain/TypeOrm/TypeOrmFriendRequestRepository';
 
 let container: Container = new Container();
 
 container.bind<UserRepository>('UserRepository').to(TypeOrmUserRepository);
 container.bind<ImageRepository>('ImageRepository').to(TypeOrmImageRepository);
+container.bind<FriendRequestRepository>('FriendRequestRepository').to(TypeOrmFriendRequestRepository);
 
 container.bind<IUserService>('IUserService').to(UserService);
 container.bind<IAuthService>('IAuthService').to(AuthService);
