@@ -24,6 +24,8 @@ import { IImageService } from '../Domain/Image/IImageService';
 import { ImageService } from '../Infrastructure/Services/ImageService';
 import { FriendRequestRepository } from '../Domain/FriendRequest/FriendRequestRepository';
 import { TypeOrmFriendRequestRepository } from '../Infrastructure/Domain/TypeOrm/TypeOrmFriendRequestRepository';
+import { IFriendRequestService } from '../Domain/FriendRequest/IFriendRequestService';
+import { FriendRequestService } from '../Infrastructure/Services/FriendRequestService';
 
 let container: Container = new Container();
 
@@ -35,6 +37,7 @@ container.bind<IUserService>('IUserService').to(UserService);
 container.bind<IAuthService>('IAuthService').to(AuthService);
 container.bind<IUploadService>('IUploadService').to(MultipartUploadService);
 container.bind<IImageService>('IImageService').to(ImageService);
+container.bind<IFriendRequestService>('IFriendRequestService').to(FriendRequestService);
 
 container.bind<HomeController>(TYPES.Controller).to(HomeController);
 container.bind<UserController>(TYPES.Controller).to(UserController);

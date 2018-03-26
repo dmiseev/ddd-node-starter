@@ -29,6 +29,22 @@ export class FriendRequest {
     })
     deletedAt: Date;
 
+    constructor(sender: User, receiver: User, createdAt: Date) {
+        this.sender = sender;
+        this.receiver = receiver;
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * @param {User} sender
+     * @param {User} receiver
+     *
+     * @returns {FriendRequest}
+     */
+    static register(sender: User, receiver: User): FriendRequest {
+        return new FriendRequest(sender, receiver, new Date());
+    }
+
     public remove(): void {
         this.deletedAt = new Date();
     }
