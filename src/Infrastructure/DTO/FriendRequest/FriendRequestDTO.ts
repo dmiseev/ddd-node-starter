@@ -2,10 +2,10 @@ import { IRequest } from '../../../Utils/Request/custom';
 
 export class FriendRequestDTO {
 
-    private _receiverId: number;
+    private _userId: number;
 
-    constructor(receiverId: number) {
-        this._receiverId = receiverId;
+    constructor(userId: number) {
+        this._userId = userId;
     }
 
     /**
@@ -15,11 +15,11 @@ export class FriendRequestDTO {
     static fromRequest(request: IRequest) {
 
         return new FriendRequestDTO(
-            request.body.receiverId
+            request.body.userId
         );
     }
 
-    get receiverId(): number {
-        return this._receiverId;
+    get userId(): number {
+        return this._userId;
     }
 }

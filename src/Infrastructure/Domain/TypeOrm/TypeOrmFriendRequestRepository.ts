@@ -62,6 +62,22 @@ export class TypeOrmFriendRequestRepository extends TypeOrmRepository implements
     }
 
     /**
+     * @param {number} senderId
+     * @param {number} receiverId
+     *
+     * @return {Promise<FriendRequest>}
+     */
+    public find(senderId: number, receiverId: number): Promise<FriendRequest> {
+
+        return this.createQueryBuilder()
+            .andWhere('fr.sender = :senderId')
+            .setParameters({senderId})
+            .andWhere('fr.receiver = :receiverId')
+            .setParameters({receiverId})
+            .getOne();
+    }
+
+    /**
      * @param {FriendRequest} friendRequest
      * @returns {Promise<FriendRequest>}
      */
@@ -80,6 +96,8 @@ export class TypeOrmFriendRequestRepository extends TypeOrmRepository implements
 
         return this.entityManager.createQueryBuilder(entityClass, alias)
             .select(alias)
-            .where(alias + '.deletedAt IS NULL');
+            .where(alias + '.deletedAt IS NULL')
+            .leftJoinAndSelect('fr.sender', 'us')
+            .leftJoinAndSelect('fr.receiver', 'ur');
     }
 }

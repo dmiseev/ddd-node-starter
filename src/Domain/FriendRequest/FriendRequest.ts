@@ -7,12 +7,12 @@ export class FriendRequest {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type => User)
-    @JoinColumn({ name: 'sender_id', referencedColumnName: 'id' })
+    @ManyToOne(type => User, {cascadeInsert: true, cascadeUpdate: true})
+    @JoinColumn({name: 'sender_id', referencedColumnName: 'id'})
     sender: User;
 
-    @ManyToOne(type => User)
-    @JoinColumn({ name: 'receiver_id', referencedColumnName: 'id' })
+    @ManyToOne(type => User, {cascadeInsert: true, cascadeUpdate: true})
+    @JoinColumn({name: 'receiver_id', referencedColumnName: 'id'})
     receiver: User;
 
     @Column({

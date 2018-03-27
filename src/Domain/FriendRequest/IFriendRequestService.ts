@@ -36,6 +36,14 @@ export interface IFriendRequestService {
     store(sender: User, DTO: FriendRequestDTO): Promise<FriendRequest>;
 
     /**
+     * @param {User} user
+     * @param {number} id
+     *
+     * @return {Promise<void>}
+     */
+    accept(user: User, id: number): Promise<void>;
+
+    /**
      * @param {number} id
      * @returns {Promise<void>}
      */

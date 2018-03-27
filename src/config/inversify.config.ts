@@ -26,6 +26,7 @@ import { FriendRequestRepository } from '../Domain/FriendRequest/FriendRequestRe
 import { TypeOrmFriendRequestRepository } from '../Infrastructure/Domain/TypeOrm/TypeOrmFriendRequestRepository';
 import { IFriendRequestService } from '../Domain/FriendRequest/IFriendRequestService';
 import { FriendRequestService } from '../Infrastructure/Services/FriendRequestService';
+import { FriendRequestController } from '../Http/Controllers/FriendRequestController';
 
 let container: Container = new Container();
 
@@ -41,6 +42,7 @@ container.bind<IFriendRequestService>('IFriendRequestService').to(FriendRequestS
 
 container.bind<HomeController>(TYPES.Controller).to(HomeController);
 container.bind<UserController>(TYPES.Controller).to(UserController);
+container.bind<FriendRequestController>(TYPES.Controller).to(FriendRequestController);
 container.bind<ProfileController>(TYPES.Controller).to(ProfileController);
 container.bind<SignInController>(TYPES.Controller).to(SignInController);
 container.bind<SignUpController>(TYPES.Controller).to(SignUpController);

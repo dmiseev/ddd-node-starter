@@ -5,7 +5,7 @@ import { injectable } from 'inversify';
 @injectable()
 export abstract class TypeOrmRepository {
 
-    protected entityManager: EntityManager;
+    public entityManager: EntityManager;
 
     constructor() {
         this.entityManager = getManager();

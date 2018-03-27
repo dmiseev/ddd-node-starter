@@ -8,6 +8,7 @@ import * as express from 'express';
 import * as validate from 'express-validation';
 import * as path from "path";
 import { jsonMiddleware, loggerMiddleware } from './Http/Middleware/CustomMiddleware';
+import { AccessDeniedError } from './Domain/Core/AccessDeniedError';
 
 createConnection().then(async connection => {
 
@@ -30,6 +31,11 @@ createConnection().then(async connection => {
             if (err instanceof validate.ValidationError) {
                 err.status = 422;
                 res.status(err.status).json(Object.assign({errorMessage: 'Validation error.'}, {error: err}));
+                return;
+            }
+
+            if (err instanceof AccessDeniedError) {
+                res.status(403).send({errorMessage: err.message});
                 return;
             }
 

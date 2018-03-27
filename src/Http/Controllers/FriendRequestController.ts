@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { controller, httpDelete, httpGet, httpPost } from 'inversify-express-utils';
+import { controller, httpDelete, httpGet, httpPatch, httpPost } from 'inversify-express-utils';
 import { inject } from 'inversify';
 import { FriendRequest } from '../../Domain/FriendRequest/FriendRequest';
 import { authMiddleware } from '../Middleware/CustomMiddleware';
@@ -29,6 +29,24 @@ export class FriendRequestController {
             request.user,
             FriendRequestDTO.fromRequest(request)
         );
+    }
+
+    /**
+     * @param {IRequest} request
+     * @param {Response} response
+     *
+     * @returns {Promise<void>}
+     */
+    @httpPatch('/:id')
+    public accept(request: IRequest, response: Response) {
+
+        return this.friendRequestService.accept(request.user, request.params.id)
+            .then(() => {
+                response.status(202);
+                return {message: 'Request successfully accepted.'};
+            });
+
+
     }
 
     /**

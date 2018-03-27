@@ -32,6 +32,7 @@ export class TypeOrmUserRepository extends TypeOrmRepository implements UserRepo
     public byId(id: number): Promise<User> {
 
         return this.createQueryBuilder()
+            .leftJoinAndSelect('u.friends', 'uf')
             .andWhere('u.id = :id')
             .setParameters({id})
             .getOne()

@@ -26,6 +26,14 @@ export interface FriendRequestRepository {
     byId(id: number): Promise<FriendRequest>;
 
     /**
+     * @param {number} senderId
+     * @param {number} receiverId
+     *
+     * @return {Promise<FriendRequest>}
+     */
+    find(senderId: number, receiverId: number): Promise<FriendRequest>;
+
+    /**
      * @param {FriendRequest} user
      */
     store(user: FriendRequest): Promise<FriendRequest>;

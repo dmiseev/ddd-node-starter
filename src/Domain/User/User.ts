@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Index, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { Image } from '../Image/Image';
 
@@ -66,6 +66,20 @@ export class User {
     @OneToMany(type => Image, image => image.user)
     images: Image[];
 
+    @ManyToMany(type => User)
+    @JoinTable({
+        name: 'users_friends',
+        joinColumn: {
+            name: 'user_id',
+            referencedColumnName: 'id'
+        },
+        inverseJoinColumn: {
+            name: 'friend_id',
+            referencedColumnName: 'id'
+        }
+    })
+    friends: User[];
+
     constructor(email: string, password: string, firstName: string, lastName: string, createdAt: Date) {
         this.email = email;
         this.password = password;
@@ -88,5 +102,38 @@ export class User {
 
     public remove(): void {
         this.deletedAt = new Date();
+    }
+
+    /**
+     * @param {User} user
+     * @return boolean
+     */
+    public isFriend(user: User): boolean {
+
+        if (!this.friends) {
+            return false;
+        }
+
+        let friends = this.friends.filter((friend: User) => {
+            return friend.id === user.id;
+        });
+
+        return !!friends;
+    }
+
+    /**
+     * @param {User} friend
+     */
+    public addFriend(friend: User): void {
+
+        if (this.isFriend(friend)) {
+            return;
+        }
+
+        if (!this.friends) {
+            this.friends = [];
+        }
+
+        this.friends.push(friend);
     }
 }
