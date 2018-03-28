@@ -5,35 +5,19 @@ import chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 
-describe('HomeController', () => {
+describe('Home', () => {
 
-    beforeEach(() => {
-        chai.request('http://localhost:3000')
-            .del('/api/v1/fixtures')
-            .end((err, res) => {
-                console.log(res.body);
-            });
-    });
+    describe('/GET /api/v1', () => {
 
-    it('GET /api/v1', (done) => {
+        it('should return message', (done) => {
 
-        chai.request('http://localhost:3000')
-            .get('/api/v1')
-            .end((err, res) => {
-                chai.assert.equal(res.status, 200);
-                chai.assert.deepEqual(res.body, { message: 'Home page.' });
-                done();
-            });
-    });
-
-    it('GET /api/v1', (done) => {
-
-        chai.request('http://localhost:3000')
-            .get('/api/v1')
-            .end((err, res) => {
-                chai.assert.equal(res.status, 200);
-                chai.assert.deepEqual(res.body, { message: 'Home page.' });
-                done();
-            });
+            chai.request('http://localhost:3000')
+                .get('/api/v1')
+                .end((err, res) => {
+                    chai.assert.equal(res.status, 200);
+                    chai.assert.deepEqual(res.body, { message: 'Home page.' });
+                    done();
+                });
+        });
     });
 });
