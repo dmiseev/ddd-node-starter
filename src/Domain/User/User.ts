@@ -3,7 +3,7 @@ import { Exclude } from 'class-transformer';
 import { Image } from '../Image/Image';
 
 @Entity('users')
-@Index('users_email_sequence', ['email'], {unique: true})
+@Index('users_email_sequence', ['email', 'deletedAt'], {unique: true})
 export class User {
 
     @PrimaryGeneratedColumn()
@@ -47,7 +47,7 @@ export class User {
         type: 'boolean',
         default: false
     })
-    isActive: string;
+    isActive: boolean;
 
     @Column({
         name: 'created_at',
