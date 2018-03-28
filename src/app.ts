@@ -58,3 +58,6 @@ createConnection().then(async connection => {
 
 }).catch(error => console.log('TypeORM connection error: ', error));
 
+process.on('unhandledRejection', error => {
+    console.log('unhandledRejection', error.message);
+});

@@ -4,7 +4,7 @@ import { controller, httpGet } from 'inversify-express-utils';
 export class HomeController {
 
     @httpGet('/')
-    private home() {
+    public home() {
         return {message: 'Home page.'};
     }
 }

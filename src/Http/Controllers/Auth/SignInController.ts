@@ -18,7 +18,7 @@ export class SignInController {
     @httpPost('/', validate(signInValidator))
     public async signIn(request: Request) {
 
-        return this.authService.signIn(
+        return await this.authService.signIn(
             SignInDTO.fromRequest(request)
         );
     }

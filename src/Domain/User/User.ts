@@ -3,7 +3,7 @@ import { Exclude } from 'class-transformer';
 import { Image } from '../Image/Image';
 
 @Entity('users')
-@Index('users_email_sequence', ['email'], {unique: true})
+@Index('users_email_deleted_sequence', ['email', 'deletedAt'], {unique: true})
 export class User {
 
     @PrimaryGeneratedColumn()
@@ -45,9 +45,9 @@ export class User {
     @Column({
         name: 'is_active',
         type: 'boolean',
-        default: false
+        nullable: false
     })
-    isActive: string;
+    isActive: boolean;
 
     @Column({
         name: 'created_at',
@@ -56,6 +56,7 @@ export class User {
     })
     createdAt: Date;
 
+    @Exclude()
     @Column({
         name: 'deleted_at',
         type: 'timestamp',
@@ -85,6 +86,7 @@ export class User {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.isActive = false;
         this.createdAt = createdAt;
     }
 
