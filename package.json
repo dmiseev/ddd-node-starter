@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && nodemon bin/app",
+    "dev": "nodemon -e ts --exec \"npm run start\"",
     "test": "nyc --clean --require ts-node/register --require reflect-metadata/Reflect --extension .ts -- mocha --exit --timeout 5000",
     "test:all": "npm test **/*.spec.ts"
   },
