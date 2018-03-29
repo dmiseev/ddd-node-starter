@@ -9,7 +9,7 @@ chai.use(chaiHttp);
 
 describe('Auth', () => {
 
-    beforeEach(() => {
+    beforeEach((done) => {
 
         // TODO: think how clear DB and exec fixtures
 
@@ -18,7 +18,10 @@ describe('Auth', () => {
             .then(() => {
                 chai.request('http://localhost:3000')
                     .post('/api/v1/fixtures')
-                    .then(() => {})
+                    .then((res) => {
+                        res.should.have.status(201);
+                        done()
+                    })
             });
     });
 
