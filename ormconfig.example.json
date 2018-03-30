@@ -15,5 +15,9 @@
   ],
   "migrations": [
     "bin/database/migrations/*.js"
-  ]
+  ],
+  "cli": {
+    "entitiesDir": "src/Domain",
+    "migrationsDir": "src/database/migrations"
+  }
 }

@@ -2,6 +2,7 @@ import 'mocha';
 
 import chai = require('chai');
 import chaiHttp = require('chai-http');
+import { rollbackMigrations } from '../TestCase';
 
 let should = chai.should();
 
@@ -9,20 +10,8 @@ chai.use(chaiHttp);
 
 describe('Auth', () => {
 
-    beforeEach((done) => {
-
-        // TODO: think how clear DB and exec fixtures
-
-        chai.request('http://localhost:3000')
-            .del('/api/v1/fixtures')
-            .then(() => {
-                chai.request('http://localhost:3000')
-                    .post('/api/v1/fixtures')
-                    .then((res) => {
-                        res.should.have.status(201);
-                        done()
-                    })
-            });
+    before((done) => {
+        rollbackMigrations(done);
     });
 
     describe('/POST /auth/sign-up', () => {
@@ -81,20 +70,32 @@ describe('Auth', () => {
         it('should login user and return jwt token', (done) => {
 
             chai.request('http://localhost:3000')
-                .post('/api/v1/auth/sign-in')
+                .post('/api/v1/auth/sign-up')
                 .type('form')
                 .send({
                     'email': 'alex.clare@test.com',
-                    'password': 'testpass'
+                    'password': 'testpass',
+                    'firstName': 'Alex',
+                    'lastName': 'Clare'
                 })
-                .end((err, res) => {
-                    res.should.have.status(200);
+                .then((res) => {
 
-                    res.body.should.be.a('object');
-                    res.body.should.have.property('token');
+                    chai.request('http://localhost:3000')
+                        .post('/api/v1/auth/sign-in')
+                        .type('form')
+                        .send({
+                            'email': 'alex.clare@test.com',
+                            'password': 'testpass'
+                        })
+                        .end((err, res) => {
+                            res.should.have.status(200);
 
-                    done();
-                });
+                            res.body.should.be.a('object');
+                            res.body.should.have.property('token');
+
+                            done();
+                        });
+                })
         });
 
         it('should return validation error while login', (done) => {

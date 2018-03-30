@@ -27,9 +27,6 @@ import { TypeOrmFriendRequestRepository } from '../Infrastructure/Domain/TypeOrm
 import { IFriendRequestService } from '../Domain/FriendRequest/IFriendRequestService';
 import { FriendRequestService } from '../Infrastructure/Services/FriendRequestService';
 import { FriendRequestController } from '../Http/Controllers/FriendRequestController';
-import { IFixtureService } from '../Domain/Core/IFixtureService';
-import { FixtureService } from '../Infrastructure/Services/FixtureService';
-import { FixtureController } from '../Http/Controllers/FixtureController';
 
 let container: Container = new Container();
 
@@ -42,7 +39,6 @@ container.bind<IAuthService>('IAuthService').to(AuthService);
 container.bind<IUploadService>('IUploadService').to(MultipartUploadService);
 container.bind<IImageService>('IImageService').to(ImageService);
 container.bind<IFriendRequestService>('IFriendRequestService').to(FriendRequestService);
-container.bind<IFixtureService>('IFixtureService').to(FixtureService);
 
 container.bind<HomeController>(TYPES.Controller).to(HomeController);
 container.bind<UserController>(TYPES.Controller).to(UserController);
@@ -52,6 +48,5 @@ container.bind<SignInController>(TYPES.Controller).to(SignInController);
 container.bind<SignUpController>(TYPES.Controller).to(SignUpController);
 container.bind<UploadController>(TYPES.Controller).to(UploadController);
 container.bind<ImageController>(TYPES.Controller).to(ImageController);
-container.bind<FixtureController>(TYPES.Controller).to(FixtureController);
 
 export default container;

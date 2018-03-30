@@ -16,7 +16,7 @@ export class Image {
     @Column({name: 'created_at', type: 'timestamp', nullable: false})
     createdAt: Date;
 
-    @ManyToOne(type => User, user => user.images, {onDelete: 'SET NULL'})
+    @ManyToOne(type => User, user => user.images)
     @JoinColumn({name: 'user_id', referencedColumnName: 'id'})
     user: User;
 
