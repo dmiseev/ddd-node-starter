@@ -12,7 +12,7 @@ import { AccessDeniedError } from './Domain/Core/AccessDeniedError';
 
 createConnection().then(async connection => {
 
-    const port: number = 3000;
+    const port: number = parseInt(process.env.PORT);
 
     let server = new InversifyExpressServer(container, null, {rootPath: '/api/v1'});
 

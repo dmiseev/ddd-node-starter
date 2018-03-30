@@ -9,7 +9,7 @@ docker-compose up -d
 ```
 
 2. Copy ormconfig.example.json to ormconfig.json with your DB connection;
-3. Execute command in cli;
+3. Install dependencies;
 ```bash
 npm i
 ```
