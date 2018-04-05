@@ -22,7 +22,7 @@ export class ProfileController {
     @httpGet('/')
     public me(request: IRequest) {
 
-        return serialize(request.user);
+        return serialize(request.user, { groups: ['detail'] });
     }
 
     /**

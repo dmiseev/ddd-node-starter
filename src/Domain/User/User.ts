@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, Index, OneToMany, ManyToMany, JoinTable } from 'typeorm';
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import { Image } from '../Image/Image';
 
 @Entity('users')
@@ -49,6 +49,7 @@ export class User {
     })
     isActive: boolean;
 
+    @Expose({ groups: ['detail'] })
     @Column({
         name: 'created_at',
         type: 'timestamp',
@@ -137,5 +138,10 @@ export class User {
         }
 
         this.friends.push(friend);
+    }
+
+    @Expose()
+    get fullName(): string {
+        return this.firstName + ' ' + this.lastName;
     }
 }
