@@ -1,15 +1,18 @@
 version: "2"
 services:
-# node:
-#   image: node:8.9
-#   ports:
-#    - 3011:3011
-#   working_dir: /usr/local/src/app
-#   volumes:
-#    - .:/usr/local/src/app
-#   command: bash -c "npm install typescript -g && npm install typeorm -g && npm install && npm start"
-#   environment:
-#     PORT: 3011
+
+ node:
+   build: .
+   ports:
+    - 3123:3123
+   depends_on:
+    - database
+   links:
+    - database
+   working_dir: /usr/local/src/app
+   volumes:
+    - .:/usr/local/src/app
+   command: bash -c "npm install && npm run dev"
 
  database:
     image: postgres:9.6
