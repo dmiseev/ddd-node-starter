@@ -13,7 +13,6 @@ import { createConnectionOptions } from './config/database';
 
 createConnection(createConnectionOptions()).then(async connection => {
 
-    console.log(123);
     const port: number = parseInt(process.env.PORT);
 
     let server = new InversifyExpressServer(container, null, {rootPath: '/api/v1'});
@@ -54,7 +53,7 @@ createConnection(createConnectionOptions()).then(async connection => {
         });
     });
 
-    server.build().listen(port, 'localhost', function () {
+    server.build().listen(port, '0.0.0.0', function () {
         console.log('listening on http://localhost:' + port);
     });
 
