@@ -1,18 +1,18 @@
 version: "2"
 services:
 
- node:
-   build: .
-   ports:
-    - 3123:3123
-   depends_on:
-    - database
-   links:
-    - database
-   working_dir: /usr/local/src/app
-   volumes:
-    - .:/usr/local/src/app
-   command: bash -c "npm install && npm run dev"
+# node:
+#   build: .
+#   ports:
+#    - 3123:3123
+#   depends_on:
+#    - database
+#   links:
+#    - database
+#   working_dir: /usr/local/src/app
+#   volumes:
+#    - .:/usr/local/src/app
+#   command: bash -c "npm install && npm run dev"
 
  database:
     image: postgres:9.6
