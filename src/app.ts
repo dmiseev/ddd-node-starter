@@ -9,8 +9,9 @@ import * as validate from 'express-validation';
 import * as path from "path";
 import { jsonMiddleware, loggerMiddleware } from './Http/Middleware/CustomMiddleware';
 import { AccessDeniedError } from './Domain/Core/AccessDeniedError';
+import { createConnectionOptions } from './config/database';
 
-createConnection().then(async connection => {
+createConnection(createConnectionOptions()).then(async connection => {
 
     const port: number = parseInt(process.env.PORT);
 
@@ -52,7 +53,7 @@ createConnection().then(async connection => {
         });
     });
 
-    server.build().listen(port, 'localhost', function () {
+    server.build().listen(port, '0.0.0.0', function () {
         console.log('listening on http://localhost:' + port);
     });
 

@@ -1,7 +1,7 @@
 {
   "name": "default",
   "type": "postgres",
-  "host": "192.168.88.105",
+  "host": "127.0.0.1",
   "port": 5411,
   "username": "starter_user",
   "password": "Eh7gLagHHHzK2h7j",
