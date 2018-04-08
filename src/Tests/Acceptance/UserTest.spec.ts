@@ -56,5 +56,46 @@ describe('User', () => {
                     });
             });
         });
+
+        it('should return user by ID', (done) => {
+
+            chai.request(environment.baseUrl + environment.apiVersion)
+                .post('/auth/sign-in').type('form').send({
+                'email': environment.email,
+                'password': environment.password
+            }).then((res) => {
+                chai.request(environment.baseUrl + environment.apiVersion)
+                    .get('/users/1')
+                    .set('x-access-token', res.body.token)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.have.property('id');
+                        res.body.should.have.property('email').eql('alex.clare@test.com');
+                        res.body.should.have.property('firstName').eql('Alex');
+                        res.body.should.have.property('lastName').eql('Clare');
+                        res.body.should.have.property('fullName').eql('Alex Clare');
+                        res.body.should.have.property('isActive').eql(false);
+                        done();
+                    });
+            });
+        });
+
+        it('try to get user with wrong ID', (done) => {
+
+            chai.request(environment.baseUrl + environment.apiVersion)
+                .post('/auth/sign-in').type('form').send({
+                'email': environment.email,
+                'password': environment.password
+            }).then((res) => {
+                chai.request(environment.baseUrl + environment.apiVersion)
+                    .get('/users/228')
+                    .set('x-access-token', res.body.token)
+                    .end((err, res) => {
+                        res.should.have.status(404);
+                        res.body.should.have.property('errorMessage').eql('User with ID #228 not found.');
+                        done();
+                    });
+            });
+        });
     });
 });

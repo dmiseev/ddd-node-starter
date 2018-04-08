@@ -10,6 +10,7 @@ import * as path from "path";
 import { jsonMiddleware, loggerMiddleware } from './Http/Middleware/CustomMiddleware';
 import { AccessDeniedError } from './Domain/Core/AccessDeniedError';
 import { createConnectionOptions } from './config/database';
+import { EntityNotFound } from './Domain/Core/EntityNotFound';
 
 createConnection(createConnectionOptions()).then(async connection => {
 
@@ -32,6 +33,11 @@ createConnection(createConnectionOptions()).then(async connection => {
             if (err instanceof validate.ValidationError) {
                 err.status = 422;
                 res.status(err.status).json(Object.assign({errorMessage: 'Validation error.'}, {error: err}));
+                return;
+            }
+
+            if (err instanceof EntityNotFound) {
+                res.status(404).send({errorMessage: err.message});
                 return;
             }
 
