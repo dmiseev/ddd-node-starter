@@ -5,6 +5,7 @@ export class HomeController {
 
     @httpGet('/')
     public home() {
+
         return {message: 'Home page.'};
     }
 }

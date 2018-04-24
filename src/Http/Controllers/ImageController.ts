@@ -18,9 +18,9 @@ export class ImageController {
      * @returns {Promise<Image>}
      */
     @httpPost('/', validate(imageValidator))
-    public store(request: IRequest): Promise<Image> {
+    public async store(request: IRequest): Promise<Image> {
 
-        return this.imageService.store(
+        return await this.imageService.store(
             ImageDTO.fromRequest(request),
             request.user
         );

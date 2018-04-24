@@ -23,9 +23,9 @@ export class FriendRequestController {
      * @returns {Promise<void>}
      */
     @httpPost('/', validate(friendRequestValidator))
-    public store(request: IRequest, response: Response) {
+    public async store(request: IRequest, response: Response) {
 
-        return this.friendRequestService.store(
+        return await this.friendRequestService.store(
             request.user,
             FriendRequestDTO.fromRequest(request)
         );
@@ -38,15 +38,13 @@ export class FriendRequestController {
      * @returns {Promise<void>}
      */
     @httpPatch('/:id')
-    public accept(request: IRequest, response: Response) {
+    public async accept(request: IRequest, response: Response) {
 
-        return this.friendRequestService.accept(request.user, request.params.id)
+        return await this.friendRequestService.accept(request.user, request.params.id)
             .then(() => {
                 response.status(202);
                 return {message: 'Request successfully accepted.'};
             });
-
-
     }
 
     /**
@@ -54,9 +52,9 @@ export class FriendRequestController {
      * @returns {Promise<FriendRequest>}
      */
     @httpGet('/:id')
-    public byId(request: IRequest,) {
+    public async byId(request: IRequest,) {
 
-        return this.friendRequestService.byId(parseInt(request.params.id))
+        return await this.friendRequestService.byId(parseInt(request.params.id))
             .then((friendRequest: FriendRequest) => {
                 return serialize(friendRequest);
             });
@@ -67,9 +65,9 @@ export class FriendRequestController {
      * @param {Response} response
      */
     @httpDelete('/:id')
-    public remove(request: IRequest, response: Response) {
+    public async remove(request: IRequest, response: Response) {
 
-        return this.friendRequestService.remove(parseInt(request.params.id))
+        return await this.friendRequestService.remove(parseInt(request.params.id))
             .then(() => {
                 response.set('X-Items-Count', '0');
                 response.status(204);

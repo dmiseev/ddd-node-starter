@@ -30,9 +30,9 @@ export class ProfileController {
      * @param {Response} response
      */
     @httpPut('/', validate(profileValidator))
-    public update(request: IRequest, response: Response) {
+    public async update(request: IRequest, response: Response) {
 
-        return this.userService.update(request.user.id, ProfileDTO.fromRequest(request))
+        return await this.userService.update(request.user.id, ProfileDTO.fromRequest(request))
             .then((user: User) => {
                 response.status(202);
                 return serialize(user);
